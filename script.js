@@ -42,7 +42,7 @@ function fmt(n) {
   // '1337': 'https://example.com',
 
 const SECRET_CODES = {
-  '7032026':   'surprise.html',     
+  '7032026':   '3rdmonths.html',     
   '6272026':  'https://discord.com/channels/1507744407359721603/1520046152916140052',
   '5242026':  'Website.html',
 
