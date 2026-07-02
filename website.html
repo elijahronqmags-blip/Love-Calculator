@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crimson Celestial Collections - By Elijah</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --crimson: #9B1C2E;
+    --crimson-dark: #7A1522;
+    --crimson-light: #C4243C;
+    --ink: #0d0d0d;
+    --paper: #F5EFE0;
+    --paper-dark: #E8DEC8;
+    --pixel: 'Press Start 2P', monospace;
+    --mono: 'VT323', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--crimson);
+    color: var(--ink);
+    font-family: var(--pixel);
+    overflow-x: hidden;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Crect x='8' y='0' width='4' height='20' fill='%23F5EFE0'/%3E%3Crect x='0' y='8' width='20' height='4' fill='%23F5EFE0'/%3E%3C/svg%3E") 10 10, crosshair;
+  }
+
+  /* ── PIXEL NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='1' height='1' fill='%23000' opacity='0.06'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23000' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ── SCANLINE ── */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 9998;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    border-bottom: 3px solid var(--ink);
+    background: var(--crimson-dark);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-logo {
+    font-family: var(--pixel);
+    font-size: 10px;
+    color: var(--paper);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--pixel);
+    font-size: 8px;
+    color: var(--paper);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 6px 10px;
+    border: 2px solid transparent;
+    transition: border-color 0.1s, background 0.1s;
+  }
+
+  .nav-links a:hover {
+    border-color: var(--paper);
+    background: rgba(245,239,224,0.1);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    padding: 4rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-content {
+    max-width: 55%;
+    z-index: 2;
+    animation: fadeInLeft 0.6s ease both;
+  }
+
+  @keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-family: var(--pixel);
+    font-size: 7px;
+    color: var(--crimson);
+    background: var(--paper);
+    padding: 6px 12px;
+    margin-bottom: 2rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: 3px solid var(--ink);
+    image-rendering: pixelated;
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  }
+
+  .hero-title {
+    font-family: var(--pixel);
+    font-size: clamp(28px, 5vw, 52px);
+    color: var(--ink);
+    line-height: 1.5;
+    letter-spacing: -1px;
+    margin-bottom: 1.5rem;
+    text-shadow: 5px 5px 0 var(--crimson-dark);
+  }
+
+  .hero-title span {
+    color: var(--paper);
+    text-shadow: 4px 4px 0 var(--crimson-dark);
+  }
+
+  .hero-sub {
+    font-family: var(--mono);
+    font-size: 22px;
+    color: var(--paper);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+    letter-spacing: 1px;
+    opacity: 0.9;
+  }
+
+  .hero-credit {
+    font-family: var(--pixel);
+    font-size: 7px;
+    color: var(--paper);
+    opacity: 0.7;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .hero-credit em {
+    font-style: normal;
+    color: var(--paper-dark);
+    opacity: 1;
+    text-decoration: underline;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--pixel);
+    font-size: 8px;
+    color: var(--crimson);
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    padding: 14px 24px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2rem;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+    box-shadow: 5px 5px 0 var(--ink);
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  }
+
+  .btn-primary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 var(--ink);
+  }
+
+  .btn-primary:active {
+    transform: translate(2px, 2px);
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+
+  /* ── PIXEL DECORATION RIGHT ── */
+  .hero-deco {
+    position: absolute;
+    right: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    animation: fadeInRight 0.8s 0.2s ease both;
+    z-index: 1;
+  }
+
+  @keyframes fadeInRight {
+    from { opacity: 0; transform: translateY(-50%) translateX(30px); }
+    to { opacity: 1; transform: translateY(-50%) translateX(0); }
+  }
+
+  .stamp-preview {
+    width: 110px;
+    height: 110px;
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    position: relative;
+    box-shadow: 4px 4px 0 var(--ink);
+    transition: transform 0.15s, box-shadow 0.15s;
+    clip-path: polygon(
+      8px 0, calc(100% - 8px) 0,
+      100% 8px, 100% calc(100% - 8px),
+      calc(100% - 8px) 100%, 8px 100%,
+      0 calc(100% - 8px), 0 8px
+    );
+    cursor: pointer;
+  }
+
+  .stamp-preview:hover {
+    transform: rotate(-3deg) scale(1.05);
+    box-shadow: 6px 6px 0 var(--ink);
+    z-index: 10;
+  }
+
+  .stamp-preview:nth-child(2) { transform: rotate(3deg); }
+  .stamp-preview:nth-child(2):hover { transform: rotate(1deg) scale(1.05); }
+  .stamp-preview:nth-child(4) { transform: rotate(-2deg); }
+  .stamp-preview:nth-child(5) { transform: rotate(5deg); background: var(--paper-dark); }
+  .stamp-preview:nth-child(6) { transform: rotate(-4deg); }
+
+  .stamp-label {
+    position: absolute;
+    bottom: 6px;
+    left: 0; right: 0;
+    text-align: center;
+    font-family: var(--pixel);
+    font-size: 6px;
+    color: var(--crimson-dark);
+    letter-spacing: 1px;
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-wrap {
+    background: var(--ink);
+    padding: 14px 0;
+    overflow: hidden;
+    border-top: 3px solid var(--ink);
+    border-bottom: 3px solid var(--ink);
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 18s linear infinite;
+    white-space: nowrap;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .marquee-item {
+    font-family: var(--pixel);
+    font-size: 8px;
+    color: var(--paper);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    padding: 0 2rem;
+    flex-shrink: 0;
+  }
+
+  .marquee-item span {
+    color: var(--crimson-light);
+    margin-right: 2rem;
+  }
+
+  /* ── ABOUT / SECTION ── */
+  section {
+    padding: 5rem 3rem;
+  }
+
+  .section-label {
+    font-family: var(--pixel);
+    font-size: 7px;
+    color: var(--paper);
+    opacity: 0.5;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: var(--pixel);
+    font-size: clamp(14px, 2.5vw, 22px);
+    color: var(--paper);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    text-shadow: 3px 3px 0 var(--crimson-dark);
+  }
+
+  /* ── FEATURES GRID ── */
+  .features {
+    background: var(--crimson-dark);
+    border-top: 3px solid var(--ink);
+    border-bottom: 3px solid var(--ink);
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--ink);
+    border: 3px solid var(--ink);
+    margin-top: 2rem;
+  }
+
+  .feature-card {
+    background: var(--crimson);
+    padding: 2rem 1.5rem;
+    transition: background 0.15s;
+  }
+
+  .feature-card:hover {
+    background: var(--crimson-light);
+  }
+
+  .feature-icon {
+    font-size: 28px;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .feature-name {
+    font-family: var(--pixel);
+    font-size: 8px;
+    color: var(--paper);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.75rem;
+  }
+
+  .feature-desc {
+    font-family: var(--mono);
+    font-size: 18px;
+    color: var(--paper);
+    opacity: 0.75;
+    line-height: 1.5;
+  }
+
+  /* ── STAMP COLLECTION ── */
+  .collection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .collection-stamp {
+    aspect-ratio: 1;
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 5px 5px 0 var(--ink);
+    transition: transform 0.15s, box-shadow 0.15s;
+    cursor: pointer;
+    clip-path: polygon(
+      8px 0, calc(100% - 8px) 0,
+      100% 8px, 100% calc(100% - 8px),
+      calc(100% - 8px) 100%, 8px 100%,
+      0 calc(100% - 8px), 0 8px
+    );
+    position: relative;
+  }
+
+  .collection-stamp::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1.5px dashed var(--ink);
+    opacity: 0.2;
+    clip-path: polygon(
+      6px 0, calc(100% - 6px) 0,
+      100% 6px, 100% calc(100% - 6px),
+      calc(100% - 6px) 100%, 6px 100%,
+      0 calc(100% - 6px), 0 6px
+    );
+  }
+
+  .collection-stamp:hover {
+    transform: rotate(-2deg) translateY(-4px);
+    box-shadow: 8px 8px 0 var(--ink);
+  }
+
+  .collection-stamp span:first-child {
+    font-size: 38px;
+  }
+
+  .collection-stamp .stamp-name {
+    font-family: var(--pixel);
+    font-size: 6px;
+    color: var(--crimson-dark);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 0 8px;
+  }
+
+  /* ── TESTIMONIAL / QUOTE ── */
+  .quote-section {
+    text-align: center;
+    background: var(--paper);
+    border-top: 3px solid var(--ink);
+    border-bottom: 3px solid var(--ink);
+    padding: 5rem 3rem;
+  }
+
+  .quote-mark {
+    font-family: var(--pixel);
+    font-size: 60px;
+    color: var(--crimson);
+    line-height: 1;
+    margin-bottom: 0;
+  }
+
+  .quote-text {
+    font-family: var(--pixel);
+    font-size: clamp(10px, 2vw, 14px);
+    color: var(--crimson-dark);
+    line-height: 2;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+  }
+
+  .quote-author {
+    font-family: var(--mono);
+    font-size: 20px;
+    color: var(--crimson);
+    letter-spacing: 2px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--crimson-dark);
+    border-top: 3px solid var(--ink);
+    padding: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-logo {
+    font-family: var(--pixel);
+    font-size: 10px;
+    color: var(--paper);
+    letter-spacing: 2px;
+  }
+
+  .footer-credit {
+    font-family: var(--mono);
+    font-size: 18px;
+    color: var(--paper);
+    opacity: 0.6;
+    letter-spacing: 2px;
+  }
+
+  .footer-pixel {
+    display: flex;
+    gap: 6px;
+  }
+
+  .fp {
+    width: 8px;
+    height: 8px;
+    background: var(--paper);
+    opacity: 0.3;
+    animation: blink 1.5s infinite;
+  }
+
+  .fp:nth-child(2) { animation-delay: 0.3s; }
+  .fp:nth-child(3) { animation-delay: 0.6s; }
+
+  @keyframes blink {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .hero { flex-direction: column; padding: 3rem 1.5rem; }
+    .hero-content { max-width: 100%; }
+    .hero-deco { position: static; transform: none; margin-top: 2rem; grid-template-columns: repeat(3, 1fr); }
+    .hero-deco .stamp-preview { width: 80px; height: 80px; font-size: 26px; }
+    .features-grid { grid-template-columns: 1fr; }
+    section { padding: 3rem 1.5rem; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">★ Crimson Celestial Collections</div>
+  <ul class="nav-links">
+    <li><a href="#collection">Collections</a></li>
+   <!--<li><a href="#Date Picture of Us">Gallery</a></li>-->
+    <li><a href="#contact">A Gentle Reminder</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag">✦ To the one, I have loved- ✦ Kreesha Gaevryll</div>
+    <h1 class="hero-title">
+      Cute Gifts<br><span>Memories</span>
+    </h1>
+    <p class="hero-sub">
+      A Love pressed into paper.<br>
+      Each Gifts tells a little story.
+    </p>
+    <p class="hero-credit"><em>Created by Elijah</em></p>
+    <a href="#collection" class="btn-primary">Browse Collection ▶</a>
+  </div>
+
+  <div class="hero-deco">
+    <div class="stamp-preview">🌸<div class="stamp-label">Blossom</div></div>
+    <div class="stamp-preview">🐱<div class="stamp-label">Kitty</div></div>
+    <div class="stamp-preview">🍄<div class="stamp-label">Shroom</div></div>
+    <div class="stamp-preview">🌙<div class="stamp-label">Moonlight</div></div>
+    <div class="stamp-preview">🍓<div class="stamp-label">Berry</div></div>
+    <div class="stamp-preview">🐝<div class="stamp-label">Bumble</div></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item"><span>★</span> Crimson Celestia <span>★</span> Collection <span>★</span> Created by Elijah <span>★</span> For my Girlfriend Kreesha Gaevryll <span>★</span> a heavenly or divine being with a fiery red/cosmic aura <span>★</span></div>
+    <div class="marquee-item"><span>★</span> Crimson Celestia <span>★</span> Collection <span>★</span> Created by Elijah <span>★</span> For my Girlfriend Kreesha Gaevryll <span>★</span> a heavenly or divine being with a fiery red/cosmic aura <span>★</span></div>
+  </div>
+</div>
+
+<!-- Date Picture of Us -->
+<!--<section id="about">
+  <p class="section-label">// About</p>
+  <h2 class="section-title">Little stamps.<br>Big personality.</h2>
+  <p style="font-family:'VT323',monospace; font-size:22px; color:var(--paper); opacity:0.85; max-width:560px; line-height:1.7; letter-spacing:1px;">
+    Every stamp in this collection is designed with love — from sketching the first pixel to pressing the final ink. Cute Stamps brings handcrafted charm to your journaling, packaging, and paper adventures.
+  </p>
+</section>-->
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <p class="section-label">Information To Remember</p>
+  <h2 class="section-title">Relationship is not Love without?</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="feature-icon">💖</span>
+      <p class="feature-name">Respect & Understanding</p>
+      <p class="feature-desc">Every motif is drawn on a pixel grid before carving — crisp, clean edges every time.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">💕</span>
+      <p class="feature-name">Quality Time & Efforts</p>
+      <p class="feature-desc">Works with all water-based ink pads. Cleans up in seconds so you can stamp more.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🌷</span>
+      <p class="feature-name">Trust & Loyalty</p>
+      <p class="feature-desc">Limited runs mean your set stays unique. When they're gone, they're gone — like good things.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTION -->
+<section id="collection">
+  <p class="section-label">Gift's and Collection</p>
+  <h2 class="section-title">Pick your favourite Moments</h2>
+  <div class="collection-grid">
+    <div class="collection-stamp"><span>🌸</span><p class="stamp-name">Blossom</p></div>
+    <div class="collection-stamp"><span>🐱</span><p class="stamp-name">Kitty</p></div>
+    <div class="collection-stamp"><span>🍄</span><p class="stamp-name">Shroom</p></div>
+    <div class="collection-stamp"><span>🌙</span><p class="stamp-name">Moonlight</p></div>
+    <div class="collection-stamp"><span>🍓</span><p class="stamp-name">Berry</p></div>
+    <div class="collection-stamp"><span>🐝</span><p class="stamp-name">Bumble</p></div>
+    <div class="collection-stamp"><span>🦋</span><p class="stamp-name">Flutter</p></div>
+    <div class="collection-stamp"><span>🌿</span><p class="stamp-name">Fern</p></div>
+    <div class="collection-stamp"><span>⭐</span><p class="stamp-name">Pixel Star</p></div>
+    <!--<div class="collection-stamp"><span>🐸</span><p class="stamp-name">Froggo</p></div>
+    <div class="collection-stamp"><span>🍵</span><p class="stamp-name">Matcha</p></div>
+    <div class="collection-stamp"><span>🌻</span><p class="stamp-name">Sunny</p></div-->
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote-section">
+  <div class="quote-mark">"</div>
+  <p class="quote-text">"The right people will not make you feel like you are difficult to love. They will meet you in your mess, they will listen to your quietest thoughts, and they will remind you without you ever having to ask that you are entirely enough just as you are</p>
+  <p class="quote-author">— Bianca Sparacino (A Gentle Reminder) </p>
+</div>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div>
+    <p class="footer-logo">★Crimson Celestia Collections★</p>
+    <p class="footer-credit">Created by Elijah</p>
+  </div>
+  <div class="footer-pixel">
+    <div class="fp"></div>
+    <div class="fp"></div>
+    <div class="fp"></div>
+  </div>
+</footer>
+
+</body>
+</html>

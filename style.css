@@ -1,0 +1,204 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  image-rendering: pixelated;
+}
+
+body {
+  font-family: 'Press Start 2P', monospace;
+  background: #1a1030 url("backgroundpixelart.jpg") no-repeat center center;
+  background-size: cover;
+  image-rendering: pixelated;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* ── Calculator Shell ── */
+.calculator {
+  background: #2d2d2d;
+  border: 4px solid #1a1a1a;
+  padding: 20px;
+  width: 320px;
+  box-shadow: 6px 6px 0 #111, 10px 10px 0 #0a0a0a;
+  position: relative;
+}
+
+.calc-brand {
+  font-size: 7px;
+  color: #07e036;
+  text-align: center;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+/* ── Display ── */
+.display-wrap {
+  background: #1c1c1c;
+  border: 3px solid #111;
+  padding: 4px;
+  margin-bottom: 16px;
+  box-shadow: inset 2px 2px 0 #000, 2px 2px 0 #444;
+}
+
+.display {
+  background: #0a1a0a;
+  color: #39ff14;
+  font-size: 14px;
+  text-align: right;
+  padding: 10px 10px 6px;
+  min-height: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  border: 2px solid #000;
+  position: relative;
+  overflow: hidden;
+}
+
+/* CRT scanline effect */
+.display::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.12) 3px,
+    rgba(0, 0, 0, 0.12) 4px
+  );
+  pointer-events: none;
+}
+
+.display .expr {
+  font-size: 7px;
+  color: #1d7a0a;
+  min-height: 14px;
+  word-break: break-all;
+  text-align: right;
+  width: 100%;
+}
+
+.display .main {
+  font-size: 18px;
+  letter-spacing: 2px;
+  word-break: break-all;
+  text-align: right;
+  width: 100%;
+  line-height: 1.4;
+}
+
+.display .main.shrink { font-size: 12px; }
+.display .main.tiny   { font-size: 9px; }
+
+/* ── Button Grid ── */
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 11px;
+  padding: 0;
+  height: 52px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  top: 0;
+  left: 0;
+  transition: top 0.04s, left 0.04s, box-shadow 0.04s;
+  border-radius: 0;
+  outline: none;
+  user-select: none;
+  letter-spacing: 0.5px;
+}
+
+.btn:focus-visible {
+  outline: 2px solid #39ff14;
+  outline-offset: 2px;
+}
+
+/* Number buttons */
+.btn-num {
+  background: #3a3a4a;
+  color: #e0e0ff;
+  box-shadow: 4px 4px 0 #111;
+  border: 2px solid #222;
+}
+.btn-num:hover { background: #4a4a5e; }
+
+/* Operator buttons */
+.btn-op {
+  background: #1e3a5f;
+  color: #6ab4ff;
+  box-shadow: 4px 4px 0 #0a1a2a;
+  border: 2px solid #0d2540;
+}
+.btn-op:hover { background: #274d7a; }
+
+/* Equals button */
+.btn-eq {
+  background: #1a4a1a;
+  color: #39ff14;
+  box-shadow: 4px 4px 0 #0a2a0a;
+  border: 2px solid #0a2a0a;
+  grid-column: span 2;
+}
+.btn-eq:hover { background: #226022; }
+
+/* Delete button */
+.btn-clear {
+  background: #5a1a1a;
+  color: #ff6060;
+  box-shadow: 4px 4px 0 #2a0a0a;
+  border: 2px solid #2a0a0a;
+}
+.btn-clear:hover { background: #7a2222; }
+
+/* All Clear button */
+.btn-ac {
+  background: #6a1a1a;
+  color: #ff8888;
+  box-shadow: 4px 4px 0 #2a0a0a;
+  border: 2px solid #2a0a0a;
+  grid-column: span 2;
+}
+.btn-ac:hover { background: #8a2626; }
+
+/* Press animation */
+.btn:active,
+.btn.pressed {
+  top: 4px;
+  left: 4px;
+  box-shadow: 0px 0px 0 transparent !important;
+}
+
+/* ── Decorative LED dots ── */
+.pixel-decor {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.pixel-dot {
+  width: 6px;
+  height: 6px;
+  background: #444;
+}
+
+.pixel-dot.lit {
+  background: #39ff14;
+  animation: blink 1.6s infinite;
+}
+
+@keyframes blink {
+  0%,  49%  { opacity: 1; }
+  50%, 100% { opacity: 0.3; }
+}
